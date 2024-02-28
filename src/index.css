@@ -94,4 +94,5 @@ textarea:not([rows]) {
 
 :root {
   --font-base: "Montserrat", sans-serif;
+  --header-blue: #3f50b6;
 }

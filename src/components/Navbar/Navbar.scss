@@ -1,0 +1,17 @@
+.navBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 10px 35px;
+
+  color: #fff;
+  background-color: var(--header-blue);
+
+  input {
+    outline: none;
+    border: none;
+    border-radius: 15px;
+    padding: 0 10px;
+  }
+}
