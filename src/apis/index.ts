@@ -2,14 +2,11 @@ export const fetchPhotos = async (url: string) => {
   const cliendId = import.meta.env.VITE_clientID;
 
   try {
-    const response = await fetch(
-      `https://api.unsplash.com/${url}per_page=20&order_by=popular`,
-      {
-        headers: {
-          Authorization: `Client-ID ${cliendId}`,
-        },
-      }
-    );
+    const response = await fetch(`https://api.unsplash.com/${url}`, {
+      headers: {
+        Authorization: `Client-ID ${cliendId}`,
+      },
+    });
 
     if (!response.ok) {
       throw new Error("Failed to fetch photos!");
@@ -17,7 +14,7 @@ export const fetchPhotos = async (url: string) => {
 
     const data = await response.json();
 
-    return url === "photos?" ? data : data.results;
+    return data;
   } catch (error) {
     throw new Error(`Something went wrong: ${error}`);
   }

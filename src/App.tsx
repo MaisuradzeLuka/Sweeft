@@ -9,10 +9,17 @@ function App() {
   const [initialPhotos, setInitialPhotos] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
-  const { data: photos, refetch } = useQuery({
+  const {
+    data: { results: photos = [] },
+    refetch,
+  } = useQuery({
     queryKey: ["photos"],
-    queryFn: () => fetchPhotos(`search/photos?query=${inputValue}&`),
+    queryFn: () =>
+      fetchPhotos(
+        `search/photos?query=${inputValue}&per_page=20&order_by=popular`
+      ),
     initialData: [],
+    enabled: false,
   });
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +34,9 @@ function App() {
 
       return () => clearTimeout(delayDebounceFn);
     } else {
-      fetchPhotos("photos?").then((data) => setInitialPhotos(data));
+      fetchPhotos("photos?per_page=20&order_by=popular").then((data) =>
+        setInitialPhotos(data)
+      );
     }
   }, [inputValue, refetch]);
 
