@@ -1,30 +1,44 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { fetchPhotos } from "./apis";
 import { Route, Routes } from "react-router";
 import { History, Home } from "./containers";
 import { Navbar } from "./components";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPhotos } from "./apis";
 
 function App() {
-  const [photos, setPhotos] = useState([]);
+  const [initialPhotos, setInitialPhotos] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
-  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+  const { data: photos, refetch } = useQuery({
+    queryKey: ["photos"],
+    queryFn: () => fetchPhotos(`search/photos?query=${inputValue}&`),
+    initialData: [],
+  });
 
-    // fetchPhotos(`search/photos?query=${inputValue}&`).then((data) =>
-    //   setPhotos(data.results)
-    // );
+  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value.trim());
   };
 
   useEffect(() => {
-    fetchPhotos("photos?").then((data) => setPhotos(data));
-  }, []);
+    if (inputValue) {
+      const delayDebounceFn = setTimeout(() => {
+        refetch();
+      }, 300);
+
+      return () => clearTimeout(delayDebounceFn);
+    } else {
+      fetchPhotos("photos?").then((data) => setInitialPhotos(data));
+    }
+  }, [inputValue, refetch]);
 
   return (
     <>
       <Navbar inputValue={inputValue} changeHandler={changeHandler} />
       <Routes>
-        <Route path="/" element={<Home photos={photos} />} />
+        <Route
+          path="/"
+          element={<Home photos={photos.length ? photos : initialPhotos} />}
+        />
         <Route path="/history" element={<History />} />
       </Routes>
     </>

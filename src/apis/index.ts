@@ -17,7 +17,7 @@ export const fetchPhotos = async (url: string) => {
 
     const data = await response.json();
 
-    return data;
+    return url === "photos?" ? data : data.results;
   } catch (error) {
     throw new Error(`Something went wrong: ${error}`);
   }
