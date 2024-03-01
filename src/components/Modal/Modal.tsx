@@ -41,7 +41,7 @@ const Modal = ({ setShowModal, photoDetails }: IModal) => {
         <div className="modal__info">
           {data && <span>{`${data.likes.total} likes`}</span>}
           {data && <span>{`${data?.downloads?.total} downloads`}</span>}
-          {data && <span>{`${data?.views?.total || 0} views`}</span>}
+          {data && <span>{`${data?.views?.total} views`}</span>}
         </div>
         <button onClick={() => setShowModal(false)}>close</button>
       </div>,

@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Route, Routes } from "react-router";
 import { History, Home } from "./containers";
 import { Navbar } from "./components";
@@ -13,7 +13,7 @@ function App() {
     data: { results: photos = [] },
     refetch,
   } = useQuery({
-    queryKey: ["photos"],
+    queryKey: ["photos", inputValue],
     queryFn: () =>
       fetchPhotos(
         `search/photos?query=${inputValue}&per_page=20&order_by=popular`
@@ -26,9 +26,23 @@ function App() {
     setInputValue(e.target.value.trim());
   };
 
+  const handleSesstionStorage = useCallback(() => {
+    const sesstionArray = sessionStorage.getItem("searchHistory");
+
+    const historyArray = sesstionArray ? JSON.parse(sesstionArray) : [];
+
+    if (!historyArray.includes(inputValue)) {
+      sessionStorage.setItem(
+        "searchHistory",
+        JSON.stringify([...historyArray, inputValue])
+      );
+    }
+  }, [inputValue]);
+
   useEffect(() => {
     if (inputValue) {
       const delayDebounceFn = setTimeout(() => {
+        handleSesstionStorage();
         refetch();
       }, 300);
 
@@ -38,7 +52,7 @@ function App() {
         setInitialPhotos(data)
       );
     }
-  }, [inputValue, refetch]);
+  }, [inputValue, refetch, handleSesstionStorage]);
 
   return (
     <>
