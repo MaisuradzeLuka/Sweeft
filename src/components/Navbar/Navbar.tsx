@@ -11,13 +11,6 @@ interface INavbar {
 const Navbar = ({ inputValue, changeHandler }: INavbar) => {
   const { pathname } = useLocation();
 
-  // const delayDebounceFn = setTimeout(() => {
-  //   // handleSesstionStorage();
-  //   // refetch();
-  // }, 300);
-
-  // return () => clearTimeout(delayDebounceFn);
-
   return (
     <nav className="navBar">
       <div className="navBar__leftSide">

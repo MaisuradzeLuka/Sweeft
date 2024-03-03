@@ -16,7 +16,6 @@ interface IUseQuery {
 const History = () => {
   const [historyItem, setHistoryItem] = useState("");
   const [page, setPage] = useState(2);
-  // const [photos, setPhotos] = useState<IPhoto[] | null>(null);
 
   const { data: initialData, refetch: initialRefetch }: IUseQuery = useQuery<
     IData,
