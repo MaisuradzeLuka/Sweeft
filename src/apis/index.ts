@@ -1,4 +1,4 @@
-export const fetchPhotos = async (url: string) => {
+export const fetchPhotos = async (url: string, id: number) => {
   const cliendId = import.meta.env.VITE_clientID;
 
   try {
@@ -14,7 +14,7 @@ export const fetchPhotos = async (url: string) => {
 
     const data = await response.json();
 
-    return data;
+    return id === 1 ? data.results : data;
   } catch (error) {
     throw new Error(`Something went wrong: ${error}`);
   }

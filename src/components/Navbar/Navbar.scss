@@ -2,16 +2,53 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding: 10px 35px;
-
   color: #fff;
-  background-color: var(--header-blue);
+  border-bottom: 1px solid #ebecf0;
 
-  input {
-    outline: none;
-    border: none;
-    border-radius: 15px;
-    padding: 0 10px;
+  &__leftSide {
+    flex: 3;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    h1 {
+      color: var(--header-green);
+    }
+
+    &__inputWrapper {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background-color: #f3f3f3;
+      color: #6a7a85;
+      border-radius: 20px;
+      padding: 7px 15px;
+      flex: 1;
+
+      svg {
+        font-size: 22px;
+      }
+
+      input {
+        width: 100%;
+        background-color: transparent;
+        outline: none;
+        border: none;
+      }
+    }
+  }
+
+  &__rightSide {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    a {
+      padding: 10px 20px;
+      background-color: var(--header-green);
+      border-radius: 25px;
+    }
   }
 }

@@ -1,6 +1,7 @@
+import { ChangeEvent } from "react";
+import { IoMdSearch } from "react-icons/io";
 import { Link, useLocation } from "react-router-dom";
 import "./Navbar.scss";
-import { ChangeEvent } from "react";
 
 interface INavbar {
   inputValue: string;
@@ -10,23 +11,40 @@ interface INavbar {
 const Navbar = ({ inputValue, changeHandler }: INavbar) => {
   const { pathname } = useLocation();
 
+  // const delayDebounceFn = setTimeout(() => {
+  //   // handleSesstionStorage();
+  //   // refetch();
+  // }, 300);
+
+  // return () => clearTimeout(delayDebounceFn);
+
   return (
     <nav className="navBar">
-      {pathname === "/" ? (
-        <Link to="/history">History</Link>
-      ) : (
-        <Link to="/">Home</Link>
-      )}
-      {pathname === "/" && (
-        <input
-          type="text"
-          name="ძებნა"
-          id="search"
-          placeholder="ძებნა..."
-          value={inputValue}
-          onChange={changeHandler}
-        />
-      )}
+      <div className="navBar__leftSide">
+        <Link to="/">
+          <h1>VisualVoyage</h1>
+        </Link>
+        {pathname === "/" && (
+          <div className="navBar__leftSide__inputWrapper">
+            <IoMdSearch />
+            <input
+              type="text"
+              name="ძებნა"
+              id="search"
+              placeholder="ძებნა..."
+              value={inputValue}
+              onChange={changeHandler}
+            />
+          </div>
+        )}
+      </div>
+      <div className="navBar__rightSide">
+        {pathname === "/" ? (
+          <Link to="/history">History</Link>
+        ) : (
+          <Link to="/">Home</Link>
+        )}
+      </div>
     </nav>
   );
 };

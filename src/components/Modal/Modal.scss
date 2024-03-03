@@ -8,14 +8,18 @@
   position: fixed;
   top: 10%;
   left: 25%;
-  z-index: 10;
+  z-index: 999;
+
   width: 50%;
   height: 80%;
+  padding: 0;
+
   background-color: #ffffff;
+  border-radius: 7px;
+  border: none;
+
   display: flex;
   flex-direction: column;
-  border-radius: 7px;
-  box-shadow: 0 0 3px 5px #0000005d;
 
   img {
     border-radius: 7px 7px 0 0;
@@ -28,5 +32,17 @@
     display: flex;
     flex-direction: column;
     row-gap: 20px;
+  }
+
+  svg {
+    background-color: transparent;
+    color: #dc143c;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    padding: 0;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
   }
 }

@@ -6,18 +6,16 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchPhotos } from "./apis";
 
 function App() {
-  const [initialPhotos, setInitialPhotos] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [page, setPage] = useState(2);
 
-  const {
-    data: { results: photos = [] },
-    refetch,
-  } = useQuery({
-    queryKey: ["photos", inputValue],
-    queryFn: () =>
-      fetchPhotos(
-        `search/photos?query=${inputValue}&per_page=20&order_by=popular`
-      ),
+  const searchUrl = inputValue
+    ? `search/photos?query=${inputValue}&per_page=20&order_by=popular`
+    : `photos?per_page=20&order_by=popular`;
+
+  const { data, refetch } = useQuery({
+    queryKey: ["photos", inputValue, 1],
+    queryFn: () => fetchPhotos(searchUrl, inputValue ? 1 : 0),
     initialData: [],
     enabled: false,
   });
@@ -42,17 +40,17 @@ function App() {
   useEffect(() => {
     if (inputValue) {
       const delayDebounceFn = setTimeout(() => {
+        setPage(2);
         handleSesstionStorage();
         refetch();
       }, 300);
 
       return () => clearTimeout(delayDebounceFn);
     } else {
-      fetchPhotos("photos?per_page=20&order_by=popular").then((data) =>
-        setInitialPhotos(data)
-      );
+      refetch();
+      setPage(2);
     }
-  }, [inputValue, refetch, handleSesstionStorage]);
+  }, [handleSesstionStorage, inputValue, refetch]);
 
   return (
     <>
@@ -60,7 +58,14 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<Home photos={photos.length ? photos : initialPhotos} />}
+          element={
+            <Home
+              inputValue={inputValue}
+              initialData={data}
+              setPage={setPage}
+              page={page}
+            />
+          }
         />
         <Route path="/history" element={<History />} />
       </Routes>

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import "./Modal.scss";
 import { useQuery } from "@tanstack/react-query";
 import { fetchPhotos } from "../../apis";
+import { IoIosClose } from "react-icons/io";
+import "./Modal.scss";
 
 interface IModal {
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -43,7 +44,7 @@ const Modal = ({ setShowModal, photoDetails }: IModal) => {
           {data && <span>{`${data?.downloads?.total} downloads`}</span>}
           {data && <span>{`${data?.views?.total} views`}</span>}
         </div>
-        <button onClick={() => setShowModal(false)}>close</button>
+        <IoIosClose onClick={() => setShowModal(false)} />
       </div>,
       mountElement
     )

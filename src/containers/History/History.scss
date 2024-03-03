@@ -6,14 +6,46 @@
 
   padding: 20px 15px;
 
-  div {
+  &__items {
+    width: 90%;
+    overflow-x: scroll;
+    display: flex;
+    gap: 15px;
+
+    margin: 30px auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    button {
+      background-color: var(--header-green);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 2px 10px;
+      cursor: pointer;
+    }
+  }
+
+  &__photos {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
 
+    width: 90%;
+
+    margin: 0 auto;
+
     img {
-      width: 200px;
+      width: 180px;
       height: 150px;
     }
   }
+}
+
+h2 {
+  font-size: 30px;
+  text-align: center;
+  margin: 100px auto !important;
 }
