@@ -98,15 +98,15 @@ const History = () => {
         )}
       </div>
 
-      <div className="history__photos">
-        {initialData?.results?.length ? (
-          initialData?.results?.map((photo, i) => (
+      {initialData?.results?.length ? (
+        <div className="history__photos">
+          {initialData?.results?.map((photo, i) => (
             <img key={i} src={photo.urls.regular} alt={photo.alt_description} />
-          ))
-        ) : (
-          <h2>Select searched history to view photos</h2>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <h2>Select searched history to view photos</h2>
+      )}
     </div>
   );
 };

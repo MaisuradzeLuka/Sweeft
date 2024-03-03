@@ -1,4 +1,4 @@
-export const fetchPhotos = async (url: string, id: number) => {
+export const fetchPhotos = async (url: string, id?: number) => {
   const cliendId = import.meta.env.VITE_clientID;
 
   try {

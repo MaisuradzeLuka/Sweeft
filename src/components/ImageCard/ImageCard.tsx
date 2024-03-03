@@ -4,6 +4,7 @@ import { Modal } from "..";
 
 const ImageCard = ({ photo }: { photo: IPhoto }) => {
   const [showModal, setShowModal] = useState(false);
+  console.log("gg");
 
   return (
     <>
